@@ -9,7 +9,7 @@ router.post("/admin/login", Auth.login);
 router.post(
   "/admin/register",
   autentikasi,
-  checkRole("superadmin"),
+  checkRole(["superadmin"]),
   Auth.register
 );
 

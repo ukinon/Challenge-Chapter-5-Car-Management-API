@@ -13,23 +13,23 @@ const { or } = require("sequelize");
 router.post(
   "/",
   autentikasi,
-  checkRole("admin", "superadmin"),
+  checkRole(["admin", "superadmin"]),
   upload.single("image"),
   car.createCar
 );
-router.get("/", autentikasi, checkRole("admin", "superadmin"), car.findCars);
+router.get("/", autentikasi, checkRole(["admin", "superadmin"]), car.findCars);
 router.get(
   "/:id",
   checkId(Car),
   autentikasi,
-  checkRole("admin", "superadmin"),
+  checkRole(["admin", "superadmin"]),
   car.findCarById
 );
 router.patch(
   "/:id",
   checkId(Car),
   autentikasi,
-  checkRole("admin", "superadmin"),
+  checkRole(["admin", "superadmin"]),
   upload.single("image"),
   car.updateCar
 );
@@ -37,7 +37,7 @@ router.delete(
   "/:id",
   checkId(Car),
   autentikasi,
-  checkRole("admin", "superadmin"),
+  checkRole(["admin", "superadmin"]),
   car.deleteCar
 );
 

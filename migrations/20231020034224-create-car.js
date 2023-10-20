@@ -33,6 +33,11 @@ module.exports = {
         allowNull: false,
         defaultValue: true,
       },
+      imageUrl: {
+        type: Sequelize.STRING,
+        defaultValue:
+          "https://tse2.mm.bing.net/th?id=OIP.U2iQ7wNK6ZzTW_traW_-PQHaHa&pid=Api&P=0&h=180",
+      },
       createdBy: {
         type: Sequelize.INTEGER,
       },

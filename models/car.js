@@ -39,6 +39,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       category: DataTypes.ENUM(["small", "medium", "large"]),
       available: DataTypes.BOOLEAN,
+      imageUrl: DataTypes.STRING,
       createdBy: DataTypes.INTEGER,
       updatedBy: DataTypes.INTEGER,
       deletedBy: DataTypes.INTEGER,

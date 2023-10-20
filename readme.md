@@ -1,14 +1,56 @@
-sesuai db diagram, terdapat 4 resources dalam sistem kita : user, auth, product dan shop.
+# Challenge Chapter 05 FSW Binar Academy x KM Batch 5
 
-1. buat rest API crud setiap resource, kecuali auth
-2. di auth api terdapat 3 API : register, login dan checktoken. API checktoken memberikan response api data user pemilik token
-3. ASSOCIATE antar models sesuai database diagram nya
-4. PELAJARI SENDIRI SEEDER di SEQUELIZE, lakukan seeder untuk user ROLE owner sebanyak 5 user
-5. buat middleware baru dengan logic kalian, middleware check apakah user pemilik shop (checkOwnership), kunci nya userId pada Shops table
-6. API untuk : create, update dan delete shop hanya bisa diakses oleh owner
-7. API untuk : update dan delete product hanya bisa dilakukan oleh owner pemilik toko, gunakan middleware checkOwnership
-8. API untuk : create hanya bisa dilakukan oleh user yang mempunyai relasi dengan toko nya, gunakan middleware checkOwnership
-9. setiap API untuk get data INCLUDE models yang mempunyai relasi, berikan di data pada response API nya
-10. buat validasi di setiap API
+This project is for completing chapter 5 challenge "Car Management API".
 
-![My Image](/public/img/db-diagram.png)
+## Installation
+
+You need to install NodeJS, NPM, and PostgreSQL on your system first.
+
+## Run Locally
+
+To run this project, you will need to add the environment variables to your .env file (see .env-example)
+
+Clone the project
+
+```bash
+  git clone https://github.com/ukinon/Challenge-Chapter-05-Car-Management-API.git
+```
+
+Go to the project directory
+
+```bash
+  cd Challenge-Chapter-05
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run dev
+```
+
+You can access your app at https://localhost:port
+
+## ERD
+
+![App Screenshot](./public/img/erd_challenge_chapter_05.png)
+
+## Links
+
+### OpenAPI Documentation Page
+
+```http
+http://localhost:PORT/api/docs
+```
+
+## Notes
+
+1. Endpoint CRUD Cars hanya dapat diakses oleh admin/superadmin
+2. Endpoint register admin hanya dapat diakses oleh superadmin
+3.
+4.

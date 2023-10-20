@@ -1,0 +1,406 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Challenge FSW 2 Chapter 5",
+    "description": "ini challenge kami",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "Users",
+      "description": "ini API untuk USERS resources"
+    },
+    {
+      "name": "Cars",
+      "description": "ini API untuk CARS resources"
+    }
+  ],
+  "servers": [
+    {
+      "url": "http://localhost:9000/api/v1"
+    }
+  ],
+  "paths": {
+    "/auth/member/login": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Return hasil hit api login utk member",
+        "description": "ini API utk login member",
+        "requestBody": {
+          "description": "ini request body utk sukses login member",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "imam@mail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "imamganteng"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sukses Member login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string",
+                          "example": "GWHUHGUAWHGUAHGIAWBGVIAHWBVIAW"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Gagal Member login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "wrong password atau user gak ada"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/member/register": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Return hasil hit api register",
+        "description": "ini API utk register",
+        "requestBody": {
+          "description": "ini request body utk sukses register",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "imam"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "imamganteng"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "imam@mail.com"
+                  },
+                  "confirmPassword": {
+                    "type": "string",
+                    "example": "imamganteng"
+                  },
+                  "age": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "bandung"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sukses register",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string",
+                          "example": "GWHUHGUAWHGUAHGIAWBGVIAHWBVIAW"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Gagal Member login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "wrong password atau user gak ada"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/admin/register": {
+      "post": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit api admin register",
+        "description": "ini API untuk admin register",
+        "requestBody": {
+          "description": "ini request body untuk sukses register",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "imam"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "imamganteng"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "imam@mail.com"
+                  },
+                  "confirmPassword": {
+                    "type": "string",
+                    "example": "imamganteng"
+                  },
+                  "age": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "bandung"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sukses register",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string",
+                          "example": "GWHUHGUAWHGUAHGIAWBGVIAHWBVIAW"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Gagal Member login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "wrong password atau user gak ada"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars": {
+      "post": {
+        "tags": ["Cars"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit api cars",
+        "description": "ini API utk create car",
+        "requestBody": {
+          "description": "ini request body utk sukses car",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "available": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "category": {
+                    "type": "string",
+                    "example": "small"
+                  },
+                  "price": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "small"
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sukses create car",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string",
+                          "example": "GWHUHGUAWHGUAHGIAWBGVIAHWBVIAW"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Gagal Member login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "wrong password atau user gak ada"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerToken": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
