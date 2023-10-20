@@ -4,7 +4,7 @@ const ApiError = require("../utils/apiError");
 const findUsers = async (req, res, next) => {
   try {
     const Users = await User.findAll({
-      include: ["Auth", "Shop"],
+      include: ["Auth"],
     });
 
     res.status(200).json({

@@ -15,25 +15,6 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: false,
         },
       });
-
-      User.hasMany(models.Car, {
-        foreignKey: {
-          name: "createdBy",
-          allowNull: true,
-        },
-      });
-      User.hasMany(models.Car, {
-        foreignKey: {
-          name: "updatedBy",
-          allowNull: true,
-        },
-      });
-      User.hasMany(models.Car, {
-        foreignKey: {
-          name: "deletedBy",
-          allowNull: true,
-        },
-      });
     }
   }
   User.init(

@@ -12,14 +12,14 @@ router.patch(
   "/:id",
   checkId(User),
   authenticate,
-  checkRole("Owner"),
+  checkRole("superadmin"),
   user.updateUser
 );
 router.delete(
   "/:id",
   checkId(User),
   authenticate,
-  checkRole("Owner"),
+  checkRole("superadmin"),
   user.deleteUser
 );
 

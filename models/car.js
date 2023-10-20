@@ -14,18 +14,21 @@ module.exports = (sequelize, DataTypes) => {
           name: "createdBy",
           allowNull: true,
         },
+        as: "creator",
       });
       Car.belongsTo(models.User, {
         foreignKey: {
           name: "updatedBy",
           allowNull: true,
         },
+        as: "updater",
       });
       Car.belongsTo(models.User, {
         foreignKey: {
           name: "deletedBy",
           allowNull: true,
         },
+        as: "deleter",
       });
     }
   }

@@ -1,30 +1,43 @@
 const router = require("express").Router();
 
-const { Product } = require("../models");
+const { Car } = require("../models");
 
 const car = require("../controller/carController");
 
 const upload = require("../middlewares/uploader");
 const autentikasi = require("../middlewares/authenticate");
 const checkRole = require("../middlewares/checkRole");
-const checkOwnership = require("../middlewares/checkOwnership");
 const checkId = require("../middlewares/checkId");
+const { or } = require("sequelize");
 
-router.post("/", autentikasi, upload.single("image"), car.createCar);
-router.get("/", autentikasi, checkRole("Owner"), car.findCars);
-router.get("/:id", checkId(Product), car.findCarById);
+router.post(
+  "/",
+  autentikasi,
+  checkRole("admin", "superadmin"),
+  upload.single("image"),
+  car.createCar
+);
+router.get("/", autentikasi, checkRole("admin", "superadmin"), car.findCars);
+router.get(
+  "/:id",
+  checkId(Car),
+  autentikasi,
+  checkRole("admin", "superadmin"),
+  car.findCarById
+);
 router.patch(
   "/:id",
-  checkId(Product),
+  checkId(Car),
   autentikasi,
-  checkRole("Owner"),
+  checkRole("admin", "superadmin"),
+  upload.single("image"),
   car.updateCar
 );
 router.delete(
   "/:id",
-  checkId(Product),
+  checkId(Car),
   autentikasi,
-  checkRole("Owner"),
+  checkRole("admin", "superadmin"),
   car.deleteCar
 );
 

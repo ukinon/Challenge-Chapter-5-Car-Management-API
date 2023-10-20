@@ -4,7 +4,7 @@ const ApiError = require("../utils/apiError");
 
 const createCar = async (req, res, next) => {
   try {
-    const { name, price, stock } = req.body;
+    const { name, price, type, category, available } = req.body;
     // validasi untuk check apakah nama produk nya udah ada
     const car = await Car.findOne({
       where: {
@@ -12,32 +12,34 @@ const createCar = async (req, res, next) => {
       },
     });
     if (car) {
-      next(new ApiError("Car name has already been taken", 400));
-    } else {
-      const file = req.file;
-      let img;
-      if (file) {
-        // dapatkan extension file nya
-        const split = file.originalname.split(".");
-        const extension = split[split.length - 1];
-
-        // upload file ke imagekit
-        const uploadedImage = await imagekit.upload({
-          file: file.buffer,
-          fileName: `IMG-${Date.now()}.${extension}`,
-        });
-        img = uploadedImage.url;
-      }
-
-      const newCar = await Car.create({
-        name,
-        price,
-        stock,
-        imageUrl: img,
-        userId: req.user.id,
-        shopId: req.user.shopId,
-      });
+      return next(new ApiError("Car name has already been taken", 400));
     }
+    const file = req.file;
+    let img;
+    if (file) {
+      // dapatkan extension file nya
+      const split = file.originalname.split(".");
+      const extension = split[split.length - 1];
+
+      // upload file ke imagekit
+      const uploadedImage = await imagekit.upload({
+        file: file.buffer,
+        fileName: `IMG-${Date.now()}.${extension}`,
+      });
+      img = uploadedImage.url;
+    }
+
+    const newCar = await Car.create({
+      name,
+      price,
+      type,
+      category,
+      available,
+      createdBy: req.user.id,
+      updatedBy: req.user.id,
+      imageUrl: img,
+    });
+
     res.status(200).json({
       status: "Success",
       data: {
@@ -52,7 +54,7 @@ const createCar = async (req, res, next) => {
 const findCars = async (req, res, next) => {
   try {
     const cars = await Car.findAll({
-      include: ["User"],
+      include: ["creator", "updater", "deleter"],
     });
 
     res.status(200).json({
@@ -95,7 +97,8 @@ const findCarById = async (req, res, next) => {
 
 const updateCar = async (req, res, next) => {
   try {
-    const { name, price, stock } = req.body;
+    const { name, price, type, category, available } = req.body;
+    console.log(name);
     const car = await Car.findOne({
       where: {
         name,
@@ -103,14 +106,33 @@ const updateCar = async (req, res, next) => {
     });
 
     if (car) {
-      next(new ApiError("Car name has already been taken", 400));
+      return next(new ApiError("Car name has already been taken", 400));
+    }
+
+    const file = req.file;
+    let img;
+    if (file) {
+      // dapatkan extension file nya
+      const split = file.originalname.split(".");
+      const extension = split[split.length - 1];
+
+      // upload file ke imagekit
+      const uploadedImage = await imagekit.upload({
+        file: file.buffer,
+        fileName: `IMG-${Date.now()}.${extension}`,
+      });
+      img = uploadedImage.url;
     }
 
     await Car.update(
       {
         name,
         price,
-        stock,
+        type,
+        category,
+        available,
+        updatedBy: req.user.id,
+        imageUrl: img,
       },
       {
         where: {
