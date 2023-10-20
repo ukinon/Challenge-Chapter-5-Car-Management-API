@@ -1,6 +1,8 @@
 const { Car } = require("../models");
 const imagekit = require("../lib/imagekit");
 const ApiError = require("../utils/apiError");
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 const createCar = async (req, res, next) => {
   try {
@@ -53,7 +55,21 @@ const createCar = async (req, res, next) => {
 
 const findCars = async (req, res, next) => {
   try {
+    const { name, available, category } = req.query;
+    const condition = {};
+
+    if (name) {
+      condition.name = { [Op.like]: "%" + name + "%" };
+    }
+    if (available) {
+      condition.available = available;
+    }
+    if (category) {
+      condition.category = category;
+    }
+
     const cars = await Car.findAll({
+      where: condition,
       include: ["creator", "updater", "deleter"],
     });
 
