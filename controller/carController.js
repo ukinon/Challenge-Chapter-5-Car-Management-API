@@ -70,6 +70,7 @@ const findCars = async (req, res, next) => {
 
     const cars = await Car.findAll({
       where: condition,
+      paranoid: false,
       include: ["creator", "updater", "deleter"],
     });
 
@@ -176,8 +177,19 @@ const deleteCar = async (req, res, next) => {
     });
 
     if (!car) {
-      next(new ApiError("Car id tersebut gak ada", 404));
+      return next(new ApiError("Car id tersebut gak ada", 404));
     }
+
+    await Car.update(
+      {
+        deletedBy: req.user.id,
+      },
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    );
 
     await Car.destroy({
       where: {
