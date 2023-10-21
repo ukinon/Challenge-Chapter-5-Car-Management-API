@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Challenge FSW 2 Chapter 5",
-    "description": "ini challenge kami",
+    "description": "Car Management API",
     "version": "1.0.0"
   },
   "tags": [
@@ -35,11 +35,11 @@
                 "properties": {
                   "email": {
                     "type": "string",
-                    "example": "imam@mail.com"
+                    "example": "papa@gmail.com"
                   },
                   "password": {
                     "type": "string",
-                    "example": "imamganteng"
+                    "example": "bogor123"
                   }
                 }
               }
@@ -295,6 +295,85 @@
         }
       }
     },
+    "/auth/admin/login": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Return hasil hit api untuk admin login",
+        "description": "API untuk login admin",
+        "requestBody": {
+          "description": "request body untuk admin login",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "papa@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "bogor123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sukses Member login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string",
+                          "example": "GWHUHGUAWHGUAHGIAWBGVIAHWBVIAW"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Gagal Member login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "wrong password atau user gak ada"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/cars": {
       "post": {
         "tags": ["Cars"],
@@ -355,9 +434,17 @@
                     "data": {
                       "type": "object",
                       "properties": {
-                        "token": {
+                        "id": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "name": {
                           "type": "string",
-                          "example": "GWHUHGUAWHGUAHGIAWBGVIAHWBVIAW"
+                          "example": "car"
+                        },
+                        "price": {
+                          "type": "integer",
+                          "example": 50000
                         }
                       }
                     }
@@ -367,7 +454,7 @@
             }
           },
           "400": {
-            "description": "Gagal Member login",
+            "description": "Gagal create car",
             "content": {
               "application/json": {
                 "schema": {
@@ -382,7 +469,7 @@
                       "properties": {
                         "message": {
                           "type": "string",
-                          "example": "wrong password atau user gak ada"
+                          "example": "error message"
                         }
                       }
                     }

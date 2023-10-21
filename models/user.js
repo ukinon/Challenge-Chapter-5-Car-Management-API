@@ -15,6 +15,12 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: false,
         },
       });
+
+      User.hasMany(models.ActivityLog, {
+        foreignKey: {
+          name: "userId",
+        },
+      });
     }
   }
   User.init(

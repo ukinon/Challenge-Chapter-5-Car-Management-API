@@ -13,7 +13,7 @@ router.patch(
   "/member/:id",
   checkId(User),
   authenticate,
-  checkOwner,
+  checkOwner(["superadmin", "admin"]),
   user.updateUser
 );
 router.patch(
@@ -21,8 +21,22 @@ router.patch(
   checkId(User),
   authenticate,
   checkRole("superadmin"),
+  checkOwner(["superadmin"]),
   user.updateUser
 );
-router.delete("/:id", checkId(User), authenticate, checkOwner, user.deleteUser);
+router.delete(
+  "/admin/:id",
+  checkId(User),
+  authenticate,
+  checkOwner(["superadmin"]),
+  user.deleteUser
+);
+router.delete(
+  "/member/:id",
+  checkId(User),
+  authenticate,
+  checkOwner(["superadmin", "admin"]),
+  user.deleteUser
+);
 
 module.exports = router;

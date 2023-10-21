@@ -52,5 +52,4 @@ http://localhost:PORT/api/docs
 
 1. Endpoint CRUD Cars hanya dapat diakses oleh admin/superadmin
 2. Endpoint register admin hanya dapat diakses oleh superadmin
-3.
-4.
+3. Yang dapat edit/delete data user hanyalah user yang memiliki akun tersebut atau user yang memiliki role yang lebih tinggi

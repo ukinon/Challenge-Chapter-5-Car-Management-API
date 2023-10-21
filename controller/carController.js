@@ -1,4 +1,4 @@
-const { Car } = require("../models");
+const { Car, ActivityLog } = require("../models");
 const imagekit = require("../lib/imagekit");
 const ApiError = require("../utils/apiError");
 const Sequelize = require("sequelize");
@@ -42,6 +42,14 @@ const createCar = async (req, res, next) => {
       imageUrl: img,
     });
 
+    await ActivityLog.create({
+      username: req.user.name,
+      userId: req.user.id,
+      dataId: newCar.id,
+      action: "create",
+      timestamp: new Date(),
+    });
+
     res.status(200).json({
       status: "Success",
       data: {
@@ -71,7 +79,7 @@ const findCars = async (req, res, next) => {
     const cars = await Car.findAll({
       where: condition,
       paranoid: false,
-      include: ["creator", "updater", "deleter"],
+      include: ["ActivityLogs"],
     });
 
     res.status(200).json({
@@ -91,7 +99,7 @@ const findCarById = async (req, res, next) => {
       where: {
         id: req.params.id,
       },
-      include: ["User"],
+      include: ["ActivityLogs"],
     });
 
     if (car === null) {
@@ -104,7 +112,7 @@ const findCarById = async (req, res, next) => {
     res.status(200).json({
       status: "Success",
       data: {
-        Car,
+        car,
       },
     });
   } catch (err) {
@@ -141,14 +149,13 @@ const updateCar = async (req, res, next) => {
       img = uploadedImage.url;
     }
 
-    await Car.update(
+    const newCar = await Car.update(
       {
         name,
         price,
         type,
         category,
         available,
-        updatedBy: req.user.id,
         imageUrl: img,
       },
       {
@@ -157,6 +164,14 @@ const updateCar = async (req, res, next) => {
         },
       }
     );
+
+    await ActivityLog.create({
+      username: req.user.name,
+      userId: req.user.id,
+      dataId: req.params.id,
+      action: "update",
+      timestamp: new Date(),
+    });
 
     res.status(200).json({
       status: "Success",
@@ -180,16 +195,13 @@ const deleteCar = async (req, res, next) => {
       return next(new ApiError("Car id tersebut gak ada", 404));
     }
 
-    await Car.update(
-      {
-        deletedBy: req.user.id,
-      },
-      {
-        where: {
-          id: req.params.id,
-        },
-      }
-    );
+    await ActivityLog.create({
+      username: req.user.name,
+      userId: req.user.id,
+      dataId: car.id,
+      action: "delete",
+      timestamp: new Date(),
+    });
 
     await Car.destroy({
       where: {
