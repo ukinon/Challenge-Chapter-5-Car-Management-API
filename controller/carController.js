@@ -95,10 +95,7 @@ const findCars = async (req, res, next) => {
 
 const findCarById = async (req, res, next) => {
   try {
-    const car = await Car.findOne({
-      where: {
-        id: req.params.id,
-      },
+    const car = await Car.findByPk(req.params.id, {
       include: ["ActivityLogs"],
     });
 

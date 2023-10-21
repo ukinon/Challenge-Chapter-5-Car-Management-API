@@ -24,7 +24,7 @@ const findUserById = async (req, res, next) => {
       where: {
         id: req.params.id,
       },
-      include: ["Auth", "Shop"],
+      include: ["Auth"],
     });
 
     res.status(200).json({

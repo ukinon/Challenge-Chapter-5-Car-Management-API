@@ -40,6 +40,17 @@ You can access your app at https://localhost:port
 
 ![App Screenshot](./public/img/erd_challenge_chapter_05.png)
 
+## Superuser data
+
+```
+1. email: papa@gmail.com
+password: bogor123
+2. email: papi@gmail.com
+password: tangerang123
+3. email: papo@gmail.com
+password: jakarta123
+```
+
 ## Links
 
 ### OpenAPI Documentation Page

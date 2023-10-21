@@ -1,5 +1,5 @@
 const ApiError = require("../utils/apiError");
-const { Shop, User, Product } = require("../models");
+const { User, Car } = require("../models");
 
 const checkId = (db) => {
   return async (req, res, next) => {

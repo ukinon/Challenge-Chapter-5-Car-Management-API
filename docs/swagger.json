@@ -7,6 +7,10 @@
   },
   "tags": [
     {
+      "name": "Auth",
+      "description": "ini API untuk AUTH resources"
+    },
+    {
       "name": "Users",
       "description": "ini API untuk USERS resources"
     },
@@ -23,7 +27,7 @@
   "paths": {
     "/auth/member/login": {
       "post": {
-        "tags": ["Users"],
+        "tags": ["Auth"],
         "summary": "Return hasil hit api login utk member",
         "description": "ini API utk login member",
         "requestBody": {
@@ -35,11 +39,11 @@
                 "properties": {
                   "email": {
                     "type": "string",
-                    "example": "papa@gmail.com"
+                    "example": "moza@gmail.com"
                   },
                   "password": {
                     "type": "string",
-                    "example": "bogor123"
+                    "example": "moza123"
                   }
                 }
               }
@@ -102,7 +106,7 @@
     },
     "/auth/member/register": {
       "post": {
-        "tags": ["Users"],
+        "tags": ["Auth"],
         "summary": "Return hasil hit api register",
         "description": "ini API utk register",
         "requestBody": {
@@ -197,7 +201,7 @@
     },
     "/auth/admin/register": {
       "post": {
-        "tags": ["Users"],
+        "tags": ["Auth"],
         "security": [
           {
             "bearerToken": []
@@ -297,7 +301,7 @@
     },
     "/auth/admin/login": {
       "post": {
-        "tags": ["Users"],
+        "tags": ["Auth"],
         "summary": "Return hasil hit api untuk admin login",
         "description": "API untuk login admin",
         "requestBody": {
@@ -309,11 +313,11 @@
                 "properties": {
                   "email": {
                     "type": "string",
-                    "example": "papa@gmail.com"
+                    "example": "noctis@gmail.com"
                   },
                   "password": {
                     "type": "string",
-                    "example": "bogor123"
+                    "example": "noctis123"
                   }
                 }
               }
@@ -322,7 +326,7 @@
         },
         "responses": {
           "200": {
-            "description": "Sukses Member login",
+            "description": "Sukses Admin login",
             "content": {
               "application/json": {
                 "schema": {
@@ -347,7 +351,7 @@
             }
           },
           "400": {
-            "description": "Gagal Member login",
+            "description": "Gagal Admin login",
             "content": {
               "application/json": {
                 "schema": {
@@ -374,6 +378,590 @@
         }
       }
     },
+    "/auth/superadmin/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Return hasil hit api untuk superadmin login",
+        "description": "API untuk login superadmmin",
+        "requestBody": {
+          "description": "request body untuk superadmin login",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "papa@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "bogor123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sukses Superadmin login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string",
+                          "example": "GWHUHGUAWHGUAHGIAWBGVIAHWBVIAW"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Gagal Superadmin login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "wrong password atau user gak ada"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit api cars",
+        "description": "ini API utk get all cars",
+        "responses": {
+          "201": {
+            "description": "Sukses get all cars",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "car"
+                        },
+                        "price": {
+                          "type": "integer",
+                          "example": 50000
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Gagal get all cars",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "error message"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit api users",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID yang mau dicari",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "description": "ini API utk get user",
+        "responses": {
+          "201": {
+            "description": "Sukses get user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "user"
+                        },
+                        "age": {
+                          "type": "integer",
+                          "example": 20
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Gagal get user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "error message"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/member/{id}": {
+      "patch": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit api cars",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID yang mau diedit",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "description": "ini API utk edit user",
+        "requestBody": {
+          "description": "ini request body utk edit user",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "small"
+                  },
+                  "age": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sukses edit user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "user"
+                        },
+                        "age": {
+                          "type": "integer",
+                          "example": 50
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Gagal edit user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "error message"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit api users",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID yang mau dihapus",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "description": "ini API utk delete users",
+        "responses": {
+          "201": {
+            "description": "Sukses delete users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "deleted successfully"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Gagal delete user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "failed delete car"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/admin/{id}": {
+      "patch": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit api cars",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID yang mau diedit",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "description": "ini API utk edit user",
+        "requestBody": {
+          "description": "ini request body utk edit user",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "small"
+                  },
+                  "age": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sukses edit user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "user"
+                        },
+                        "age": {
+                          "type": "integer",
+                          "example": 50
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Gagal edit user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "error message"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit api users",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID yang mau dihapus",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "description": "ini API utk delete users",
+        "responses": {
+          "201": {
+            "description": "Sukses delete users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "deleted successfully"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Gagal delete user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "failed delete car"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
     "/cars": {
       "post": {
         "tags": ["Cars"],
@@ -470,6 +1058,342 @@
                         "message": {
                           "type": "string",
                           "example": "error message"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Cars"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit api cars",
+        "description": "ini API utk get all cars",
+        "responses": {
+          "201": {
+            "description": "Sukses get all cars",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "car"
+                        },
+                        "price": {
+                          "type": "integer",
+                          "example": 50000
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Gagal get all cars",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "error message"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars/{id}": {
+      "get": {
+        "tags": ["Cars"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit api cars",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID yang mau dicari",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "description": "ini API utk get car",
+        "responses": {
+          "201": {
+            "description": "Sukses get car",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "car"
+                        },
+                        "price": {
+                          "type": "integer",
+                          "example": 50000
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Gagal get car",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "error message"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Cars"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit api cars",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID yang mau diedit",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "description": "ini API utk edit car",
+        "requestBody": {
+          "description": "ini request body utk edit car",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "available": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "category": {
+                    "type": "string",
+                    "example": "small"
+                  },
+                  "price": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "small"
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sukses edit car",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "car"
+                        },
+                        "price": {
+                          "type": "integer",
+                          "example": 50000
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Gagal edit car",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "error message"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Cars"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "Return hasil hit api cars",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID yang mau dihapus",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "description": "ini API utk delete cars",
+        "responses": {
+          "201": {
+            "description": "Sukses delete cars",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "deleted successfully"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Gagal delete car",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Failed"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "failed delete car"
                         }
                       }
                     }

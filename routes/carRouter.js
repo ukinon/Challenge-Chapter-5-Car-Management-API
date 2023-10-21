@@ -1,7 +1,6 @@
 const router = require("express").Router();
 
 const { Car } = require("../models");
-
 const car = require("../controller/carController");
 
 const upload = require("../middlewares/uploader");
