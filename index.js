@@ -19,9 +19,6 @@ app.use(express.static(`${__dirname}/public`));
 
 app.use(cors());
 
-app.set("views", __dirname + "/views");
-app.set("view engine", "ejs");
-
 app.use(morgan("dev"));
 app.use(router);
 
