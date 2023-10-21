@@ -34,8 +34,6 @@ Start the server
   npm run dev
 ```
 
-You can access your app at https://localhost:port
-
 ## ERD
 
 ![App Screenshot](./public/img/erd_challenge_chapter_05.png)
