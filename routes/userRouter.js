@@ -7,8 +7,19 @@ const checkId = require("../middlewares/checkId");
 const checkRole = require("../middlewares/checkRole");
 const { User } = require("../models");
 
-router.get("/", user.findUsers);
-router.get("/:id", checkId(User), user.findUserById);
+router.get(
+  "/",
+  authenticate,
+  checkRole(["admin", "superadmin"]),
+  user.findUsers
+);
+router.get(
+  "/:id",
+  checkRole(["admin", "superadmin"]),
+  checkId(User),
+  authenticate,
+  user.findUserById
+);
 router.patch(
   "/member/:id",
   checkId(User),
@@ -18,9 +29,9 @@ router.patch(
 );
 router.patch(
   "/admin/:id",
+  checkRole("superadmin"),
   checkId(User),
   authenticate,
-  checkRole("superadmin"),
   checkOwner(["superadmin"]),
   user.updateUser
 );
